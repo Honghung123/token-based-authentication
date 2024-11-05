@@ -45,7 +45,7 @@ export class CatchEverythingFilter implements ExceptionFilter {
   };
 
   catch(exception: unknown, host: ArgumentsHost): void {
-    console.log(exception);
+    // console.log(exception);
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
     const httpStatus = this.getHttpStatus(exception);
