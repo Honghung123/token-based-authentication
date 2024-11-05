@@ -20,7 +20,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { EmailExistedException } from './../exceptions/customs/emailExistedException';
-import { UsernameExistedException } from './../exceptions/customs/UsernameExistedException';
+import { UsernameExistedException } from './../exceptions/customs/usernameExistedException';
 import { Public } from './../app.guard';
 import { TokenExpiredException } from './../exceptions/customs/expiredTokenException';
 import { TokenInvalidException } from './../exceptions/customs/tokenInvalidException';
@@ -51,21 +51,21 @@ export class UsersController {
   @Get('/get-email')
   @Public()
   async findOne(@Query('email') email: string): Promise<any> {
-    try {
-      return await this.usersService.findByEmail(email);
-    } catch (error) {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) {
       throw new NotFoundException('Email not found');
     }
+    return user;
   }
 
   @Get('/get-username')
   @Public()
   async findByUsername(@Query('username') username: string): Promise<any> {
-    try {
-      return await this.usersService.findByUsername(username);
-    } catch (error) {
+    const user = await this.usersService.findByUsername(username);
+    if (!user) {
       throw new NotFoundException('Username not found');
     }
+    return user;
   }
 
   @Get('/profile')

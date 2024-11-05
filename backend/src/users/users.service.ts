@@ -11,7 +11,7 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 import { encryptPassword } from './../utilities/bcrypt.ultility';
 import { EmailExistedException } from './../exceptions/customs/emailExistedException';
-import { UsernameExistedException } from './../exceptions/customs/UsernameExistedException';
+import { UsernameExistedException } from './../exceptions/customs/usernameExistedException';
 import { JsonWebTokenError, JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { TokenExpiredException } from './../exceptions/customs/expiredTokenException';
 import { TokenInvalidException } from './../exceptions/customs/tokenInvalidException';

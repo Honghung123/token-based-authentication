@@ -7,12 +7,34 @@ export default function ProfilePage() {
     const userGlobal = useSelector((state) => state.userGlobal);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(userGlobal);
-        if (!userGlobal.authenticated || userGlobal.user == null) {
+        if (!localStorage.getItem("accessToken")) {
             sessionStorage.setItem("accessDenied", "Unauthorized! Access Denied!");
             navigate("/login");
         }
+        const fetchData = async () => {
+            const response = await axios.get(`${BASE_URL}/user/profile`, {
+                headers: {
+                    Authorization: `${localStorage.getItem("accessToken")}`,
+                },
+            });
+            if (response.status === 200) {
+                dispatch(updateUser(response.data));
+            } else {
+                localStorage.removeItem("accessToken");
+                sessionStorage.setItem("unauthenticated", "Unauthenticated. Please login again.");
+                navigate("/login");
+            }
+        };
+
+        fetchData();
     }, []);
+    if (!userGlobal.authenticated || userGlobal.user == null) {
+        return (
+            <div className="grid place-items-center min-h-[20rem]">
+                <CircularProgress />
+            </div>
+        );
+    }
     return (
         <>
             <h2 className="mt-4 text-2xl text-gray-600 text-center">Profile Page</h2>

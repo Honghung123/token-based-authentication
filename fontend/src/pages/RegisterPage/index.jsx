@@ -16,7 +16,7 @@ import axios from "axios";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL ?? `http://localhost:8081`;
+const BASE_URL = import.meta.env.VITE_BASE_URL ?? `http://localhost:8080`;
 
 export default function RegisterPage(props) {
     const navigate = useNavigate();
@@ -48,7 +48,8 @@ export default function RegisterPage(props) {
             return false;
         } else {
             try {
-                await axios.get(`${BASE_URL}/user/get-email?email=${email.value}`);
+                const response = await axios.get(`${BASE_URL}/user/get-email?email=${email.value}`);
+                console.log(response);
                 setEmailError(true);
                 setEmailErrorMessage("Email already exists.");
                 setDisable(false);
@@ -68,7 +69,7 @@ export default function RegisterPage(props) {
             return false;
         } else {
             try {
-                await axios.get(`${BASE_URL}/user/get-username?username=${username.value}`);
+                const response = await axios.get(`${BASE_URL}/user/get-username?username=${username.value}`);
                 setUsernameError(true);
                 setUsernameErrorMessage("Username already exists.");
                 setDisable(false);
