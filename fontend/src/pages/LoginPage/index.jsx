@@ -65,7 +65,7 @@ export default function LoginPage() {
                 setToaster({
                     ...toaster,
                     open: true,
-                    message: "Login successfully. Redirecting to homepage in 2 seconds...",
+                    message: "Login successfully. Redirecting to homepage...",
                     type: "success",
                 });
                 setTimeout(() => {
