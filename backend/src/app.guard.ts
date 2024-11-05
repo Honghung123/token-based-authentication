@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JsonWebTokenError, JwtService, TokenExpiredError } from '@nestjs/jwt';
+import { TokenExpiredException } from './exceptions/customs/expiredTokenException';
+import { TokenInvalidException } from './exceptions/customs/tokenInvalidException';
 
 export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
@@ -28,12 +30,25 @@ export class AuthGuard implements CanActivate {
       // 💡 See this condition
       return true;
     }
-
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) {
-      throw new UnauthorizedException('Unauthorized. Access denied!');
+      throw new TokenInvalidException('Unauthorized. Access denied!');
     }
+    try {
+      await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET,
+      });
+    } catch (error) {
+      if (error instanceof TokenExpiredError) {
+        throw new TokenExpiredException('Token has expired');
+      } else if (error instanceof JsonWebTokenError) {
+        throw new TokenInvalidException('Invalid token');
+      }
+      // Catch any other unexpected errors
+      throw new Error('An error occurred while verifying token');
+    }
+    ``;
     return true;
   }
 

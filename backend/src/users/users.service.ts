@@ -77,7 +77,7 @@ export class UsersService {
         throw new TokenInvalidException('Invalid token');
       }
       // Catch any other unexpected errors
-      throw new Error('An error occurred while verifying token');
+      throw new Error('An error has occurred. Please try again');
     }
   }
 
