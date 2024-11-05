@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #f00;
+    --paragraph-text-color: #555;
+    --header-text-color: #000;
+    --inverse-paragraph-text-color: #fff;
+    --main-bg-color: #000;
+    --inverse-main-bg-color: #fff;
+    --placeholder-text-color: #aaa;
+}
+
+.dark-mode {
+    --text-color: #ffffff;
+    --inverse-text-color: var(--paragraph-text-color);
+    --inverse-main-bg-color: var(--main-bg-color);
+}
+
+.custom-horizontal-divider {
+    &.left::before {
+        content: "";
+        border-left: 2px solid #aaa;
+        display: inline-block;
+        height: 60%;
+        vertical-align: middle;
+    }
+}
+
+.css-1toxriw-MuiList-root-MuiMenu-list {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.currency {
+    &.dollar::after {
+        content: " $";
+    }
+    &.euro::after {
+        content: " €";
+    }
+    &.vietnamdong::after {
+        content: " ₫";
+    }
+}
+
+.shadow-card {
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
