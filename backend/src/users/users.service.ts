@@ -9,13 +9,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
-import { encryptPassword } from 'src/utilities/bcrypt.ultility';
-import { EmailExistedException } from 'src/exceptions/customs/emailExistedException';
-import { UsernameExistedException } from 'src/exceptions/customs/UsernameExistedException';
-import { UserResponse } from './dto/user_response';
+import { encryptPassword } from './../utilities/bcrypt.ultility';
+import { EmailExistedException } from './../exceptions/customs/emailExistedException';
+import { UsernameExistedException } from './../exceptions/customs/UsernameExistedException';
 import { JsonWebTokenError, JwtService, TokenExpiredError } from '@nestjs/jwt';
-import { TokenExpiredException } from 'src/exceptions/customs/expiredTokenException';
-import { TokenInvalidException } from 'src/exceptions/customs/tokenInvalidException';
+import { TokenExpiredException } from './../exceptions/customs/expiredTokenException';
+import { TokenInvalidException } from './../exceptions/customs/tokenInvalidException';
 
 @Injectable()
 export class UsersService {

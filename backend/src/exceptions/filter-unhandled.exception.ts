@@ -7,7 +7,6 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
-import { error } from 'console';
 import { MongooseError } from 'mongoose';
 
 /**

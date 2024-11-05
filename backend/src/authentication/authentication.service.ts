@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CredentialsDto } from './dto/credentials.dto';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from 'src/users/users.service';
-import { PasswordNotMatchException } from 'src/exceptions/customs/passwordNotMatchException';
-import { comparePassword } from 'src/utilities/bcrypt.ultility';
-import { EmailNotFoundException } from 'src/exceptions/customs/emailNotFoundException';
+import { UsersService } from './../users/users.service';
+import { PasswordNotMatchException } from './../exceptions/customs/passwordNotMatchException';
+import { comparePassword } from './../utilities/bcrypt.ultility';
+import { EmailNotFoundException } from './../exceptions/customs/emailNotFoundException';
 
 @Injectable()
 export class AuthenticationService {

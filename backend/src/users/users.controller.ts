@@ -19,11 +19,11 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { EmailExistedException } from 'src/exceptions/customs/emailExistedException';
-import { UsernameExistedException } from 'src/exceptions/customs/UsernameExistedException';
-import { Public } from 'src/app.guard';
-import { TokenExpiredException } from 'src/exceptions/customs/expiredTokenException';
-import { TokenInvalidException } from 'src/exceptions/customs/tokenInvalidException';
+import { EmailExistedException } from './../exceptions/customs/emailExistedException';
+import { UsernameExistedException } from './../exceptions/customs/UsernameExistedException';
+import { Public } from './../app.guard';
+import { TokenExpiredException } from './../exceptions/customs/expiredTokenException';
+import { TokenInvalidException } from './../exceptions/customs/tokenInvalidException';
 
 @Controller('user')
 export class UsersController {

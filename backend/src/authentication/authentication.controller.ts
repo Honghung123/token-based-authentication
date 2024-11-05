@@ -13,9 +13,9 @@ import {
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { CredentialsDto } from './dto/credentials.dto';
-import { EmailNotFoundException } from 'src/exceptions/customs/emailNotFoundException';
-import { PasswordNotMatchException } from 'src/exceptions/customs/passwordNotMatchException';
-import { Public } from 'src/app.guard';
+import { EmailNotFoundException } from './../exceptions/customs/emailNotFoundException';
+import { PasswordNotMatchException } from './../exceptions/customs/passwordNotMatchException';
+import { Public } from './../app.guard';
 
 @Controller('auth')
 export class AuthenticationController {
