@@ -53,8 +53,10 @@ jobs:
         steps:
             - name: Checkout code - pull repository to the runner
               uses: actions/checkout@v3
+            - name: Make all sh scripts executable
+              run: chmod +x *.sh
             - name: Run a simple script
-              run: chmod +x script.sh && ./pass_param.sh "Hoang cute! :3"
+              run: ./pass_param.sh "Hoang cute! :3"
             - name: Show list of files
               run: ./show_dir.sh
     build_job:
