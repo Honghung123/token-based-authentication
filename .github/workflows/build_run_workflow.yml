@@ -1,0 +1,55 @@
+name: Build and Run workflow
+on: 
+    push: 
+        branches: main
+        branches-ignore: dev
+    workflow_dispatch: 
+        inputs:
+            chosen-os:
+                required: true
+                description: Choose your OS for your runner
+                type: choice
+                options:
+                    - macos-latest
+                    - ubuntu-latest
+                    - windows-latest
+                default: ubuntu-latest
+            node_version:
+                type: choice
+                options:
+                    - '17'
+                    - '18'
+                    - '21'
+                default: '18'
+env:
+    NODE_VERSION: 18
+jobs:
+    test_env_job:
+        name: This job is used for testing enviroment variables
+        runs-on: ubuntu-latest
+        env:
+            LOCAL_VAR: Hoang Cute
+            OS_NAME: ${{ inputs.chosen-os }}
+            NODE_VERSION_OPT: ${{ inputs.node_version }}
+        steps:
+            - name: Set env variable
+              env:
+                STEP_LOCAL_VAR: 1
+              run: echo "Step environments were set!"
+            - name: Test env variable 
+              run: |
+                echo "Print node version global env: ${{ env.NODE_VERSION }} or $NODE_VERSION - $NODE_VERSION_OPT" 
+                echo "Print job env: ${{ env.LOCAL_VAR }} or $LOCAL_VAR "
+                echo "Print steps env: $STEP_LOCAL_VAR. Cannot access by `${{ env.STEP_LOCAL_VAR }}`"
+    build_job:
+        name: The build project job
+        needs: [test_env_job]
+        if: ${{ always() }}
+        runs-on: [self-hosted, ubuntu-latest, "${{inputs.chosen-os}}"]
+        steps:
+            - name: Checkout code - pull repository to the runner
+              uses: actions/checkout@v3
+            - name: Build backend NestJS
+              run: cd backend && npm run build
+            - name: Build frontend ReactJS
+              run: cd .. && cd fontend && npm run build
