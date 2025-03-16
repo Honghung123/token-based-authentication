@@ -1,9 +1,9 @@
 name: Build and Run workflow
-on: 
-    push: 
-        branches: main
-        branches-ignore: dev
-    workflow_dispatch: 
+on:
+    push:
+        branches: [main, "!dev"]
+        # branches-ignore: dev    # You cannot use both the branches and branches-ignore filters for the same event in a workflow.
+    workflow_dispatch:
         inputs:
             chosen-os:
                 required: true
@@ -17,10 +17,10 @@ on:
             node_version:
                 type: choice
                 options:
-                    - '17'
-                    - '18'
-                    - '21'
-                default: '18'
+                    - "17"
+                    - "18"
+                    - "21"
+                default: "18"
 env:
     NODE_VERSION: 18
 jobs:
@@ -34,13 +34,13 @@ jobs:
         steps:
             - name: Set env variable
               env:
-                STEP_LOCAL_VAR: 1
+                  STEP_LOCAL_VAR: 1
               run: echo "Step environments were set!"
-            - name: Test env variable 
+            - name: Test env variable
               run: |
-                echo "Print node version global env: ${{ env.NODE_VERSION }} or $NODE_VERSION - $NODE_VERSION_OPT" 
-                echo "Print job env: ${{ env.LOCAL_VAR }} or $LOCAL_VAR "
-                echo "Print steps env: $STEP_LOCAL_VAR. Cannot access by `${{ env.STEP_LOCAL_VAR }}`"
+                  echo "Print node version global env: ${{ env.NODE_VERSION }} or $NODE_VERSION - $NODE_VERSION_OPT" 
+                  echo "Print job env: ${{ env.LOCAL_VAR }} or $LOCAL_VAR "
+                  echo "Print steps env: $STEP_LOCAL_VAR. Cannot access by `${{ env.STEP_LOCAL_VAR }}`"
     build_job:
         name: The build project job
         needs: [test_env_job]
