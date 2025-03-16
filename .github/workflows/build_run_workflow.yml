@@ -41,10 +41,26 @@ jobs:
                   echo "Print node version global env: ${{ env.NODE_VERSION }} or $NODE_VERSION - $NODE_VERSION_OPT" 
                   echo "Print job env: ${{ env.LOCAL_VAR }} or $LOCAL_VAR "
                   echo "Print steps env: $STEP_LOCAL_VAR. Cannot access by `${{ env.STEP_LOCAL_VAR }}`"
+    simple_run_script_job:
+        name: The simple run script job
+        needs: [test_env_job]
+        if: ${{ always() }}
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                shell: bash
+                working-directory: ./script/sh
+        steps:
+            - name: Checkout code - pull repository to the runner
+              uses: actions/checkout@v3
+            - name: Run a simple script
+              run: ./pass_param.sh "Hoang cute! :3"
+            - name: Show list of files
+              run: ./show_dir.sh
     build_job:
         name: The build project job
         needs: [test_env_job]
-        if: ${{ always() }}
+        if: ${{ failure() }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code - pull repository to the runner
