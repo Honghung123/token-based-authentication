@@ -45,7 +45,7 @@ jobs:
         name: The build project job
         needs: [test_env_job]
         if: ${{ always() }}
-        runs-on: [self-hosted, ubuntu-latest, fromJSON(inputs.chosen-os)]
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout code - pull repository to the runner
               uses: actions/checkout@v3
